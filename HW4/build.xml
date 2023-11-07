@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Prime" default="test" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" >
+    <property name="src.dir" value="src"/>
+    <property name="bin.dir" value="bin"/>
+    <property name="test.src.dir" value="test/src"/>
+    <property name="test.bin.dir" value="test/bin"/>
+	
+	<!--     <target name="resolve-dependencies" description="Retrieve dependencies with ivy">
+	        <ivy:retrieve pattern="Libraries/[artifact]-[revision].[ext]" />
+	    </target> -->
+    
+    <target name="resolve" description="Retrieve dependencies with ivy">
+        <ivy:retrieve pattern="Libraries/[artifact]-[revision].[ext]" />
+    </target>
+
+    <!-- Compile the main code -->
+    <target name="compile" description="Compile the main code">
+        <mkdir dir="${bin.dir}"/>
+        <javac classpathref="classpath" srcdir="${src.dir}" destdir="${bin.dir}" includes="**/*.java"/>
+        <echo message="Main Compilation completed successfully!" />
+    </target>
+
+    <!-- Compile the test code -->
+    <target name="test-compile" depends="compile,resolve" description="Compile the test code">
+        <mkdir dir="${test.bin.dir}"/>
+        <javac classpathref="classpath" srcdir="${test.src.dir}" destdir="${test.bin.dir}" includes="**/*.java"/>
+        <echo message="Test Compilation completed successfully!" />
+    </target>
+
+    <!-- Compile both main and test code -->
+    <target name="run" depends="compile,test-compile,resolve" description="Compile both main and test code"/>
+
+</project>
