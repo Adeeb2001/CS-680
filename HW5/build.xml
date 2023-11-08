@@ -1,4 +1,4 @@
-<project name="HW04" basedir="."  default="clean">
+<project name="HW05" basedir="."  default="clean">
     <property name="src" location="src" />
     <property name="bin" location="bin" />
 
@@ -13,20 +13,20 @@
     <target name="compile" depends="init">
         <javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
             <classpath refid="classpath"/>
-            <include name="edu/umb/cs680/hw04/Fan.java"/>
+            <include name="edu/umb/cs680/hw05/MessagingApp.java"/>
             <!-- include name="edu/umb/cs680/junit5intro/*.java"/-->
         </javac>
     </target>
 
     <target name="run" depends="compile">
-        <java classname="edu.umb.cs680.hw04.Fan"
+        <java classname="edu.umb.cs680.hw05.MessagingApp"
               classpathref="classpath"
               fork="true"/>
     </target>
 
     <target name="clean" depends="run">
         <delete includeemptydirs="true">
-            <fileset dir="${bin}/edu/umb/cs680/hw04" includes="**/*"/>
+            <fileset dir="${bin}/edu/umb/cs680/hw05" includes="**/*"/>
         </delete>
     </target>
 </project>
