@@ -1,4 +1,4 @@
-<project name="HW01" basedir="."  default="clean">
+<project name="HW02" basedir="."  default="clean">
     <property name="src" location="src" />
     <property name="bin" location="bin" />
 
@@ -26,7 +26,7 @@
 
     <target name="clean" depends="run">
         <delete includeemptydirs="true">
-            <fileset dir="${bin}/edu/umb/cs680/hw01" includes="**/*"/>
+            <fileset dir="${bin}/edu/umb/cs680/hw02" includes="**/*"/>
         </delete>
     </target>
 </project>
