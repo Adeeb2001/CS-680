@@ -1,33 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="Prime" default="test" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" >
-    <property name="src.dir" value="src"/>
-    <property name="bin.dir" value="bin"/>
-    <property name="test.src.dir" value="test/src"/>
-    <property name="test.bin.dir" value="test/bin"/>
-	
-	<!--     <target name="resolve-dependencies" description="Retrieve dependencies with ivy">
-	        <ivy:retrieve pattern="Libraries/[artifact]-[revision].[ext]" />
-	    </target> -->
-    
-    <target name="resolve" description="Retrieve dependencies with ivy">
-        <ivy:retrieve pattern="Libraries/[artifact]-[revision].[ext]" />
+<project name="HW01" basedir="."  default="clean">
+    <property name="src" location="src" />
+    <property name="bin" location="bin" />
+
+    <path id="classpath">
+        <pathelement location="bin" />
+    </path>
+
+    <target name="init">
+        <mkdir dir="${bin}"/>
     </target>
 
-    <!-- Compile the main code -->
-    <target name="compile" description="Compile the main code">
-        <mkdir dir="${bin.dir}"/>
-        <javac classpathref="classpath" srcdir="${src.dir}" destdir="${bin.dir}" includes="**/*.java"/>
-        <echo message="Main Compilation completed successfully!" />
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
+            <classpath refid="classpath"/>
+            <include name="edu/umb/cs680/hw01/PrimeGenerator.java"/>
+            <!-- include name="edu/umb/cs680/junit5intro/*.java"/-->
+        </javac>
     </target>
 
-    <!-- Compile the test code -->
-    <target name="test-compile" depends="compile,resolve" description="Compile the test code">
-        <mkdir dir="${test.bin.dir}"/>
-        <javac classpathref="classpath" srcdir="${test.src.dir}" destdir="${test.bin.dir}" includes="**/*.java"/>
-        <echo message="Test Compilation completed successfully!" />
+    <target name="run" depends="compile">
+        <java classname="edu.umb.cs680.hw01.PrimeGenerator"
+              classpathref="classpath"
+              fork="true"/>
     </target>
 
-    <!-- Compile both main and test code -->
-    <target name="run" depends="compile,test-compile,resolve" description="Compile both main and test code"/>
-
+    <target name="clean" depends="run">
+        <delete includeemptydirs="true">
+            <fileset dir="${bin}/edu/umb/cs680/hw01" includes="**/*"/>
+        </delete>
+    </target>
 </project>
